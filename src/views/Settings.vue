@@ -80,7 +80,7 @@
 </template>
 
 <script>
-import { getToken, fetchApplication } from '../api';
+import { getToken } from '../api';
 import LoadingAnimation from '../components/LoadingAnimation.vue';
 
 export default {
@@ -144,13 +144,13 @@ export default {
                     expiresAt: Date.now() + (tokenData.expires_in * 1000),
                     value: tokenData.access_token
                 });
-                fetchApplication(this.$store.state.clientID, this.$store.state.diswhoToken).then((application) => {
-                    this.$toast.success(`Successfully logged in as ${application.username}!`, {
-                        duration: 10000,
-                        pauseOnHover: true
-                    });
-                    this.$router.push('/');
-                });
+                // fetchApplication(this.$store.state.clientID, this.$store.state.diswhoToken).then((application) => {
+                //     this.$toast.success(`Successfully logged in as ${application.username}!`, {
+                //         duration: 10000,
+                //         pauseOnHover: true
+                //     });
+                this.$router.push('/');
+                // });
                 this.loading = false;
                 this.$root.loadCommands();
             }).catch(() => {

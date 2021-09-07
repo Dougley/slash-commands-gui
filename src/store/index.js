@@ -67,10 +67,10 @@ export default createStore({
                     console.log('Settings loaded but bearer token not be retrieved.');
                 }
             }
-            const diswhoToken = localStorage.getItem('diswhoToken');
-            if (diswhoToken) {
-                commit('UPDATE_DISWHO_TOKEN', diswhoToken);
-            }
+            // const diswhoToken = localStorage.getItem('diswhoToken');
+            // if (diswhoToken) {
+            //     commit('UPDATE_DISWHO_TOKEN', diswhoToken);
+            // }
         },
         saveToken ({ commit }, tokenData) {
             localStorage.setItem('token', JSON.stringify(tokenData));
@@ -80,10 +80,10 @@ export default createStore({
             localStorage.removeItem('token');
             commit('UPDATE_TOKEN', null);
         },
-        saveDiswhoToken ({ commit }, token) {
-            localStorage.setItem('diswhoToken', token);
-            commit('UPDATE_DISWHO_TOKEN', token);
-        }
+        // saveDiswhoToken ({ commit }, token) {
+        //     localStorage.setItem('diswhoToken', token);
+        //     commit('UPDATE_DISWHO_TOKEN', token);
+        // }
     },
     mutations: {
         UPDATE_SETTINGS (state, settings) {
@@ -99,8 +99,8 @@ export default createStore({
         SET_APPLICATION_NAME (state, name) {
             state.applicationName = name;
         },
-        UPDATE_DISWHO_TOKEN (state, token) {
-            state.diswhoToken = token;
-        }
+        // UPDATE_DISWHO_TOKEN (state, token) {
+        //     state.diswhoToken = token;
+        // }
     }
 });

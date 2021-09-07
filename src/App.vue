@@ -69,8 +69,7 @@
 </template>
 
 <script>
-import decodeJwt from 'jwt-decode';
-import { fetchApplication, fetchCommands } from './api';
+import { fetchCommands } from './api';
 import NavigationBar from './components/NavigationBar.vue';
 import LoadingAnimation from './components/LoadingAnimation.vue';
 
@@ -89,19 +88,19 @@ export default {
     created () {
         this.$store.dispatch('loadSettingsCache');
 
-        const
-            paramDiswhoJwt = new URLSearchParams(window.location.search).get('diswhoJwt'),
-            storeDiswhoJwt = this.$store.state.diswhoToken;
-        if (paramDiswhoJwt){
-            this.$store.dispatch('saveDiswhoToken', paramDiswhoJwt);
-            this.$router.replace({ path: '/', query: {} })
-        } else if(
-            !storeDiswhoJwt
-            ||
-            storeDiswhoJwt && decodeJwt(storeDiswhoJwt).expirationTimestamp < Date.now()
-        ){
-            return window.location.replace(`https://diswho.androz2091.fr?returnUrl=${window.location.href}`);
-        }
+        // const
+        //     paramDiswhoJwt = new URLSearchParams(window.location.search).get('diswhoJwt'),
+        //     storeDiswhoJwt = this.$store.state.diswhoToken;
+        // if (paramDiswhoJwt){
+        //     this.$store.dispatch('saveDiswhoToken', paramDiswhoJwt);
+        //     this.$router.replace({ path: '/', query: {} });
+        // } else if(
+        //     !storeDiswhoJwt
+        //     ||
+        //     storeDiswhoJwt && decodeJwt(storeDiswhoJwt).expirationTimestamp < Date.now()
+        // ){
+        //     return window.location.replace(`https://diswho.androz2091.fr?returnUrl=${window.location.href}`);
+        // }
 
         this.loadCommands();
     },
@@ -115,7 +114,7 @@ export default {
             } else {
                 const startAt = Date.now();
                 fetchCommands(this.$store.state.clientID, this.$store.state.token.value, this.$store.state.selectedGuildID).then(async (commands) => {
-                    const app = await fetchApplication(this.$store.state.clientID, this.$store.state.diswhoToken).catch(() => {});
+                    const app = undefined;
                     if (app) this.$store.commit('SET_APPLICATION_NAME', app.username + '#' + app.discriminator);
                     setTimeout(() => {
                         this.$store.commit('SET_COMMANDS', commands);
